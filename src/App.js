@@ -126,6 +126,7 @@ export default function App({
           <Typography variant="h6" noWrap>
             Mini Zomato
           </Typography>
+          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -170,7 +171,7 @@ export default function App({
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <h2>dsf</h2>
+        
         {children}
         </main>
     </div>

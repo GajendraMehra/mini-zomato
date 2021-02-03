@@ -6,6 +6,7 @@ import {
     Link
 } from 'react-router-dom'
 import App from './App'
+import Home from './components/Home'
 
 function Routes() {
     return (
@@ -18,12 +19,6 @@ function Routes() {
     )
 }
 
-const Home=()=>{
-    return (
-        <h1>
-            Hello
-        </h1>
-    )
-}
+
 
 export default Routes
