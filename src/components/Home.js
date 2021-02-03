@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import Grid from '@material-ui/core/Grid';
 import Geolocation from 'react-geolocation';
-
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2px 4px',
@@ -43,8 +43,33 @@ export default function Home() {
   const setLocation=(lat,lng)=>{
     setLat(lat)
     setLng(lng)
+    console.log(lat);
+    console.log(lng);
+    var url= "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=30.310743&longitude=77.988213&localityLanguage=en"
+    
+    axios.get(url)
+      .then(res => {
+        getLocationInfo(res.data.locality )
+      })
   
   }
+
+const getLocationInfo=(data)=>{
+  var url= `https://developers.zomato.com/api/v2.1/cities?q=${data}&count=1`
+    
+  axios.get(url, {
+    headers: {
+        'Content-Type': 'application/json',
+        'user-key': '0110bd60e6845c9aa66418529017dab6'
+    },
+ 
+})
+    .then(res => {
+    console.table(res.data)
+    }).catch((err)=>{
+      console.table(err)
+    })
+}
 
   return (
     <App>
