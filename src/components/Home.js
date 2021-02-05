@@ -39,9 +39,11 @@ export default function Home() {
   const [lng, setLng] = useState(null);
   const [locDetail, setLocDetail] = useState(null)
   useEffect(() => {
-    setLocation(lat,lng)
+    if(lat&&lng){
+      setLocation(lat,lng)
+    }
   }, [lat,lng])
-  
+ 
   const classes = useStyles();
 
   const setLocation=(lat,lng)=>{
@@ -49,16 +51,16 @@ export default function Home() {
 
     console.log(lat);
     console.log(lng);
-    var url= "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=30.310743&longitude=77.988213&localityLanguage=en"
+    var url= `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
     
-    // axios.get(url)
-    //   .then(res => {
+    axios.get(url)
+      .then(res => {
+        getLocationInfo(res.data.locality )
+      }).catch((err)=>{
+        console.table(err)
+      })
     //     getLocationInfo(res.data.locality )
-    //   }).catch((err)=>{
-    //     console.table(err)
-    //   })
-    //     getLocationInfo(res.data.locality )
-        getLocationInfo('Dehradun')
+      
     
   
   }
@@ -81,57 +83,70 @@ const getLocationInfo=(data)=>{
       console.table(err)
     })
 }
-const sendData = (index) => { // the callback. Use a better name
-  console.log(index);
-  // setDrive(index);
-};
+
+
+const welcomeUser=()=>{
+  return (
+    <h2>Magic Happens Here </h2>
+  )
+}
+
+const detectLocation=()=>{
+  return (
+    <Paper component="form" className={classes.root}>
+    <IconButton className={classes.iconButton} aria-label="menu">
+      <MenuIcon />
+    </IconButton>
+    <InputBase
+      className={classes.input}
+      placeholder="Search Location"
+      inputProps={{ 'aria-label': 'search google maps' }}
+    />
+    <IconButton type="submit" className={classes.iconButton} aria-label="search">
+      <SearchIcon />
+    </IconButton>
+    <Divider className={classes.divider} orientation="vertical" />
+  
+    <Geolocation
+    
+      lazy
+    render={({
+      fetchingPosition=false,
+      position: { coords: { latitude, longitude } = {} } = {},
+      error,
+      getCurrentPosition
+    }) =>
+    <div>
+    <IconButton color="primary"  onClick={()=>{
+      getCurrentPosition()
+      
+  }} className={classes.iconButton} aria-label="directions">
+      <LocationSearchingIcon />
+    </IconButton>
+    <div>
+   
+    {error &&
+      <div>
+        {error.message}
+      </div>}
+     { setLat(latitude)}
+    {  setLng(longitude)}
+     
+    
+  </div>
+  </div>
+     }
+  />
+   
+  </Paper>
+  )
+}
   return (
     <App sendData={locDetail}>
 
     <Grid justify="center" container >
-    <Paper component="form" className={classes.root}>
-      <IconButton className={classes.iconButton} aria-label="menu">
-        <MenuIcon />
-      </IconButton>
-      <InputBase
-        className={classes.input}
-        placeholder="Search Location"
-        inputProps={{ 'aria-label': 'search google maps' }}
-      />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search">
-        <SearchIcon />
-      </IconButton>
-      <Divider className={classes.divider} orientation="vertical" />
-      <Geolocation
-      render={({
-        fetchingPosition,
-        position: { coords: { latitude, longitude } = {} } = {},
-        error,
-        getCurrentPosition
-      }) =>
-      <div>
-      <IconButton color="primary"  onClick={()=>{
-        getCurrentPosition()
-        
-    }} className={classes.iconButton} aria-label="directions">
-        <LocationSearchingIcon />
-      </IconButton>
-      <div>
-     
-      {error &&
-        <div>
-          {error.message}
-        </div>}
-       { setLat(lat)}
-      {  setLng(lng)}
-       
-      
-    </div>
-    </div>
-       }
-    />
-     
-    </Paper>
+    {(locDetail)?welcomeUser():detectLocation()}
+    
     </Grid>
     </App>
   );
