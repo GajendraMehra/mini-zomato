@@ -17,6 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Avatar from '@material-ui/core/Avatar';
 import {Link} from 'react-router-dom'
 const drawerWidth = 240;
 
@@ -81,9 +82,24 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  search: {
+    // position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    display:'flex',
+    flexDirection:'row-reverse',
+    textAlign:'right',
+    flexGrow:3,
+    marginLeft: 120,
+    width: '70%',
+    // right:'0',
+    // border:"1px solid red",
+   
+  },
+
 }));
 
 export default function App({
+  sendData,
   children  
 }) {
   const classes = useStyles();
@@ -126,6 +142,10 @@ export default function App({
           <Typography variant="h6" noWrap>
             Mini Zomato
           </Typography>
+          <div className={classes.search}>
+          <Avatar pt={3} alt="Remy Sharp" src={sendData&&sendData.country_flag_url} className={classes.large} />
+         <h2 style={{'marginRight':'20px'}}>  {sendData&&sendData.name}</h2>
+         </div>
           
         </Toolbar>
       </AppBar>

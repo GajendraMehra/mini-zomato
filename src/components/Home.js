@@ -36,21 +36,30 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
 
   const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null)
+  const [lng, setLng] = useState(null);
+  const [locDetail, setLocDetail] = useState(null)
+  useEffect(() => {
+    setLocation(lat,lng)
+  }, [lat,lng])
   
   const classes = useStyles();
 
   const setLocation=(lat,lng)=>{
-    setLat(lat)
-    setLng(lng)
+    // alert()
+
     console.log(lat);
     console.log(lng);
     var url= "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=30.310743&longitude=77.988213&localityLanguage=en"
     
-    axios.get(url)
-      .then(res => {
-        getLocationInfo(res.data.locality )
-      })
+    // axios.get(url)
+    //   .then(res => {
+    //     getLocationInfo(res.data.locality )
+    //   }).catch((err)=>{
+    //     console.table(err)
+    //   })
+    //     getLocationInfo(res.data.locality )
+        getLocationInfo('Dehradun')
+    
   
   }
 
@@ -65,14 +74,19 @@ const getLocationInfo=(data)=>{
  
 })
     .then(res => {
-    console.table(res.data)
+      console.log(res.data.location_suggestions[0]);
+      
+    setLocDetail(res.data.location_suggestions[0])
     }).catch((err)=>{
       console.table(err)
     })
 }
-
+const sendData = (index) => { // the callback. Use a better name
+  console.log(index);
+  // setDrive(index);
+};
   return (
-    <App>
+    <App sendData={locDetail}>
 
     <Grid justify="center" container >
     <Paper component="form" className={classes.root}>
@@ -98,6 +112,7 @@ const getLocationInfo=(data)=>{
       <div>
       <IconButton color="primary"  onClick={()=>{
         getCurrentPosition()
+        
     }} className={classes.iconButton} aria-label="directions">
         <LocationSearchingIcon />
       </IconButton>
@@ -107,8 +122,10 @@ const getLocationInfo=(data)=>{
         <div>
           {error.message}
         </div>}
+       { setLat(lat)}
+      {  setLng(lng)}
+       
       
-     {!error&&setLocation(latitude,longitude)}
     </div>
     </div>
        }
