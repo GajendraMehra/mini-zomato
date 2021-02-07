@@ -6,14 +6,16 @@ import {
     Link
 } from 'react-router-dom'
 import App from './App'
-import Home from './components/Home'
+import Home from './components/home/'
+
+import Restaurants from './restaurants/index'
 
 function Routes() {
     return (
        <BrowserRouter>
        <Switch>
-        <Route path="/" exact component={App}></Route>
-        <Route path="/home" component={Home}></Route>
+        <Route path="/" exact component={Home}></Route>
+        <Route path="/restaurants" component={Restaurants}></Route>
        </Switch>
        </BrowserRouter>
     )

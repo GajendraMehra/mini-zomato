@@ -117,6 +117,11 @@ export default function App({ data, children }) {
   const [locDetail, setLocDetail] = useState(null);
 
   useEffect(() => {
+    var item =localStorage.getItem("locationDetails");
+    if (item) {
+        setLocDetail(JSON.parse(item));
+    }
+    console.log(item)
     
 
     if (lat && lng) {
@@ -126,12 +131,8 @@ export default function App({ data, children }) {
   }, [lat, lng]);
   
   useEffect(() => {
+    data&&data(locDetail)
     
-
-    if (lat && lng) {
-      
-      (data)&&data(locDetail)
-    }
   }, [locDetail]);
   const setLocation = (lat, lng) => {
     // alert()
@@ -163,7 +164,7 @@ export default function App({ data, children }) {
       })
       .then((res) => {
         console.log(res.data.location_suggestions[0]);
-
+        localStorage.setItem("locationDetails", JSON.stringify(res.data.location_suggestions[0]));
         setLocDetail(res.data.location_suggestions[0]);
       })
       .catch((err) => {
@@ -180,9 +181,14 @@ export default function App({ data, children }) {
   };
   const mainMenu = [
     {
+      name: "Home",
+      id: 1,
+      routeLink: "/",
+    },
+    {
       name: "Restruants",
       id: 1,
-      routeLink: "/home",
+      routeLink: "/restaurants",
     },
   ];
   return (

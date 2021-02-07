@@ -1,10 +1,10 @@
 import Grid from '@material-ui/core/Grid';
 import React,{useState,useEffect} from 'react'
-import App from '../App'
+import App from '../../App'
 import { makeStyles } from '@material-ui/core/styles';
-import {trendingMeal} from '../request/'
+import {trendingMeal} from '../../request/'
 
-import TrendingCard from './home/TrendingCard'
+import TrendingCard from './TrendingCard'
 
 
 
