@@ -8,7 +8,7 @@ import {
 import App from './App'
 import Home from './components/home/'
 
-import Restaurants from './restaurants/index'
+import Restaurants from './components/restaurants/index'
 
 function Routes() {
     return (

@@ -24,6 +24,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import axios from "axios";
+import Message from './components/common/Message'
 import Grid from '@material-ui/core/Grid';
 
 import { Link } from "react-router-dom";
@@ -165,6 +166,7 @@ export default function App({ data, children }) {
       .then((res) => {
         console.log(res.data.location_suggestions[0]);
         localStorage.setItem("locationDetails", JSON.stringify(res.data.location_suggestions[0]));
+        
         setLocDetail(res.data.location_suggestions[0]);
       })
       .catch((err) => {
@@ -179,6 +181,8 @@ export default function App({ data, children }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  
   const mainMenu = [
     {
       name: "Home",
@@ -200,6 +204,7 @@ export default function App({ data, children }) {
           [classes.appBarShift]: open,
         })}
       >
+     
         <Toolbar>
           <IconButton
             color="inherit"
@@ -224,6 +229,8 @@ export default function App({ data, children }) {
             />
             <h2 style={{ marginRight: "20px" }}>
               {" "}
+         
+
               {locDetail && locDetail.name}
             </h2>
           </div>

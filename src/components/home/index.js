@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react'
 import App from '../../App'
 import { makeStyles } from '@material-ui/core/styles';
 import {trendingMeal} from '../../request/'
-
+import Message from '../common/Message'
 import TrendingCard from './TrendingCard'
 
 
@@ -32,25 +32,30 @@ export default function Home() {
 
 
   return (
+    
     <App data={(locDetail)=>{
      setLocation(locDetail)
      
       console.log(locDetail);
      
     }}>
+
     <Grid item xs={12}  container
     direction="row"
     wrap
     justify="center"
    >
+  {(collections)&&(<Message open={true} data={`${collections.length} Trending Meals Found`}></Message>)}
    {(collections)?(
+     
 collections.map((collection)=>
   (
+
     <TrendingCard key={collection.collection.collection_id} collection={collection.collection}></TrendingCard>
   )
 )
   ):(
-     <h3>Loading Collections</h3>
+   <h3>Loading Trending</h3>
    )}
   
   
