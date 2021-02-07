@@ -39,7 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TrendingCard() {
+export default function TrendingCard({
+  collection
+}) {
+  {console.log(collection)}
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -62,12 +65,12 @@ export default function TrendingCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={collection.title}
         subheader="September 14, 2016"
       />
       <CardMedia
         className={classes.media}
-        image="https://picsum.photos/200/300"
+        image={collection.image_url}
         title="Paella dish"
       />
       <CardContent>

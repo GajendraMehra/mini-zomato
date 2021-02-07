@@ -10,18 +10,31 @@ import TrendingCard from './home/TrendingCard'
 
 
 export default function Home() {
+  const [location, setLocation] = useState(null)
+  const [collections, setCollections] = useState(null)
+  const  fetchTrending=async ()=>{
+
+    await trendingMeal(35).then((data)=>{
+      setCollections((data.data.collections))
+      console.log(data.data.collections);
+      
+    })
+     
+  }
   useEffect(() => {
- 
+    // alert()
     return () => {
-      trendingMeal(35).then((data)=>{
-        console.log(data);
-        
-      })
+     
+       fetchTrending()
+     
     }
-  }, [])
+  }, [location])
+
 
   return (
     <App data={(locDetail)=>{
+     setLocation(locDetail)
+     
       console.log(locDetail);
      
     }}>
@@ -29,13 +42,19 @@ export default function Home() {
     direction="row"
     wrap
     justify="center"
-    alignItems="center">
-    <TrendingCard/>
-    <TrendingCard/>
-    <TrendingCard/>
-    <TrendingCard/>
-    <TrendingCard/>
-    <TrendingCard/>
+   >
+   {(collections)?(
+collections.map((collection)=>
+  (
+    <TrendingCard collection={collection.collection}></TrendingCard>
+  )
+)
+  ):(
+     <h3>Loading Collections</h3>
+   )}
+  
+  
+   
     </Grid>
 
   
