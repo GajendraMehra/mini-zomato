@@ -46,7 +46,7 @@ export default function Home() {
    {(collections)?(
 collections.map((collection)=>
   (
-    <TrendingCard collection={collection.collection}></TrendingCard>
+    <TrendingCard key={collection.collection.collection_id} collection={collection.collection}></TrendingCard>
   )
 )
   ):(
