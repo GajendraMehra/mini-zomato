@@ -19,7 +19,7 @@ export const trendingMeal =async (id) => {
 
 
   export const getRestaurants =async (id) => {
-    var url = `https://developers.zomato.com/api/v2.1/collections?city_id=${id}`;
+    var url = `https://developers.zomato.com/api/v2.1/search?entity_id=35&entity_type=city`;
 
    return  await axios
       .get(url, {

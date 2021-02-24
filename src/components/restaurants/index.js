@@ -8,12 +8,14 @@ console.log(location);
 
         await getRestaurants(location.id).then((data)=>{
          
-          console.log(data.data.collections);
+          console.table(data.data.restaurants);
+          setRestaurants(data.data.restaurants);
           
         })
          
       }
     const [location, setLocation] = useState(null)
+  const [restaurants, setRestaurants] = useState(null)
     useEffect(() => {
         // alert()
         return () => {
@@ -29,7 +31,13 @@ console.log(location);
             
              console.log(locDetail);
             
-           }}></App>
+           }}>
+         {(restaurants)?(
+          <h3>Loading </h3>
+         ):(
+          <h3>Loading setRestaurants</h3>
+         )}
+           </App>
         </div>
     )
 }
