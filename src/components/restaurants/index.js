@@ -1,5 +1,6 @@
 import React ,{useState,useEffect} from 'react'
 import App from '../../App'
+import RestaurantCard from './RestaurantCard'
 import {getRestaurants} from '../../request/'
 
 function Restaurants() {
@@ -33,7 +34,9 @@ console.log(location);
             
            }}>
          {(restaurants)?(
-          <h3>Loading </h3>
+          restaurants.map((restaurant )=>(
+            <RestaurantCard restaurant={restaurant.restaurant }/>
+          ))
          ):(
           <h3>Loading setRestaurants</h3>
          )}
