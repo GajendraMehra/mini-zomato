@@ -1,11 +1,13 @@
 import React ,{useState,useEffect} from 'react'
+import Grid from '@material-ui/core/Grid';
+
 import App from '../../App'
 import RestaurantCard from './RestaurantCard'
 import {getRestaurants} from '../../request/'
-
+import Message from '../common/Message'
 function Restaurants() {
     const  fetchRestaurant=async ()=>{
-console.log(location);
+
 
         await getRestaurants(location.id).then((data)=>{
          
@@ -29,10 +31,16 @@ console.log(location);
         <div>
            <App data={(locDetail)=>{
             setLocation(locDetail)
-            
-             console.log(locDetail);
+           
             
            }}>
+           
+    <Grid item xs={12}  container
+    direction="row"
+    wrap
+    justify="center"
+   >
+   {(restaurants)&&(<Message open={true} data={`${restaurants.length} Restaurants Found`}></Message>)}
          {(restaurants)?(
           restaurants.map((restaurant )=>(
             <RestaurantCard restaurant={restaurant.restaurant }/>
@@ -40,6 +48,7 @@ console.log(location);
          ):(
           <h3>Loading setRestaurants</h3>
          )}
+         </Grid>
            </App>
         </div>
     )

@@ -72,11 +72,11 @@ export default function RestaurantCard({
           </IconButton>
         }
         title={restaurant.name}
-        subheader={`No of Restruants : `+restaurant.all_reviews_count}
+        subheader={`User Reviews : `+restaurant.all_reviews_count}
       />
       <CardMedia
         className={classes.media}
-        image={restaurant.featured_image}
+        image={restaurant.thumb}
         title="Paella dish"
       />
       <CardContent>

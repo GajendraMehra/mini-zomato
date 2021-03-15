@@ -9,6 +9,7 @@ import TrendingCard from './TrendingCard'
 
 
 
+
 export default function Home() {
   const [location, setLocation] = useState(null)
   const [collections, setCollections] = useState(null)
@@ -45,6 +46,7 @@ export default function Home() {
     wrap
     justify="center"
    >
+   
   {(collections)&&(<Message open={true} data={`${collections.length} Trending Meals Found`}></Message>)}
    {(collections)?(
      
